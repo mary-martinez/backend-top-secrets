@@ -58,14 +58,14 @@ describe('backend-express-template routes', () => {
     const [agent] = await signUpAndIn();
     const res = await agent.post('/api/v1/secrets').send({
       title: 'New',
-      descption: 'Secret description'
+      description: 'Secret description'
     });
     expect(res.status).toEqual(200);
     expect(res.body).toEqual({
       id: expect.any(String),
       title: 'New',
-      descption: 'Secret description',
-      created_at: expect.any(String)
+      description: 'Secret description',
+      createdAt: null
     });
   });
   afterAll(() => {
