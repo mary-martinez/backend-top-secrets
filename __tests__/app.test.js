@@ -54,6 +54,20 @@ describe('backend-express-template routes', () => {
     const res = await agent.get('/api/v1/users/secrets');
     expect(res.status).toEqual(200);
   });
+  it('POST /secrets should post a new secret if the user is signed in', async () => {
+    const [agent] = await signUpAndIn();
+    const res = await agent.post('/api/v1/users/secrets').send({
+      title: 'New',
+      descption: 'Secret description'
+    });
+    expect(res.status).toEqual(200);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      title: 'New',
+      descption: 'Secret description',
+      created_at: expect.any(String)
+    });
+  });
   afterAll(() => {
     pool.end();
   });
