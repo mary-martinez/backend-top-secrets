@@ -46,17 +46,17 @@ describe('backend-express-template routes', () => {
     expect(res.status).toEqual(200);
   });
   it('/secrets should return a 401 error if not admin', async () => {
-    const res = await request(app).get('/api/v1/users/secrets');
+    const res = await request(app).get('/api/v1/secrets');
     expect(res.status).toEqual(401);
   });
   it('/secrets should return a list of secrets  to signed in users', async () => {
     const [agent] = await signUpAndIn();
-    const res = await agent.get('/api/v1/users/secrets');
+    const res = await agent.get('/api/v1/secrets');
     expect(res.status).toEqual(200);
   });
   it('POST /secrets should post a new secret if the user is signed in', async () => {
     const [agent] = await signUpAndIn();
-    const res = await agent.post('/api/v1/users/secrets').send({
+    const res = await agent.post('/api/v1/secrets').send({
       title: 'New',
       descption: 'Secret description'
     });
