@@ -45,6 +45,15 @@ describe('backend-express-template routes', () => {
     const res = await agent.get('/api/v1/users/protected');
     expect(res.status).toEqual(200);
   });
+  it('/secrets should return a 401 error if not admin', async () => {
+    const res = await request(app).get('/api/v1/users/secrets');
+    expect(res.status).toEqual(401);
+  });
+  it('/secrets should return a list of secrets  to signed in users', async () => {
+    const [agent] = await signUpAndIn();
+    const res = await agent.get('/api/v1/users/secrets');
+    expect(res.status).toEqual(200);
+  });
   afterAll(() => {
     pool.end();
   });
