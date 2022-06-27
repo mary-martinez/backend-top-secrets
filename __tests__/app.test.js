@@ -18,7 +18,6 @@ const signUpAndIn = async (userProps = {}) => {
 
   const { email } = user;
   await agent.post('/api/v1/users/sessions').send({ email, password });
-  console.log('user', { user });
   return [agent, user];
 };
 
@@ -44,7 +43,6 @@ describe('backend-express-template routes', () => {
   it('/protected should return the current user if authenticated', async () => {
     const [agent] = await signUpAndIn();
     const res = await agent.get('/api/v1/users/protected');
-    console.log('res.body', res.body);
     expect(res.status).toEqual(200);
   });
   it('/secrets should return a 401 error if not admin', async () => {
