@@ -34,6 +34,7 @@ describe('backend-express-template routes', () => {
   it('/api/v1/users/sessions signs in a user', async () => {
     await request(app).post('/api/v1/users').send(mockUser);
     const res = await request(app).post('/api/v1/users/sessions').send({ email: '123@test.com', password: '123456' });
+    console.log('res.body', res.body);
     expect(res.status).toEqual(200);
   });
   it('/protected should return a 401 if not authenticated', async () => {
@@ -43,6 +44,7 @@ describe('backend-express-template routes', () => {
   it('/protected should return the current user if authenticated', async () => {
     const [agent] = await signUpAndIn();
     const res = await agent.get('/api/v1/users/protected');
+    console.log('res.body', res.body);
     expect(res.status).toEqual(200);
   });
   it('/secrets should return a 401 error if not admin', async () => {
